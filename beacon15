@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hira Beacon — Journal of Academic & Creative Inquiry</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Elegant Editorial & Classical Serifs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;950&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                        display: ['Cinzel', 'serif'],
+                        editorial: ['Playfair Display', 'serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    colors: {
+                        darkBg: '#030303',
+                        darkCard: '#08080b',
+                        darkBorder: '#121217',
+                        lightBg: '#faf9f5',
+                        lightCard: '#ffffff',
+                        lightBorder: '#e8e6df',
+                        accentGold: '#d4af37',
+                        accentGoldHover: '#b5942e',
+                        accentAmber: '#f59e0b',
+                    },
+                    boxShadow: {
+                        'neon-sm': '0 0 10px rgba(212, 175, 55, 0.15)',
+                        'neon-md': '0 0 20px rgba(212, 175, 55, 0.3)',
+                        'neon-lg': '0 0 40px rgba(212, 175, 55, 0.5)',
+                        'inner-gold': 'inset 0 0 15px rgba(212, 175, 55, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Premium Gold Glow Accent Guides */
+        .glow-line-gold {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, #f59e0b, #d4af37, transparent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+        
+        .glow-line-gold::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: #f59e0b;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #d4af37, 0 0 20px #d4af37;
+        }
+
+        .glow-border-gold {
+            position: relative;
+            border-color: rgba(212, 175, 55, 0.12) !important;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glow-border-gold:hover {
+            border-color: rgba(212, 175, 55, 0.5) !important;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.04);
+            transform: translateY(-2px);
+        }
+
+        /* Pulsing Background Nebulas */
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.1; filter: blur(80px); }
+            50% { transform: scale(1.1); opacity: 0.16; filter: blur(100px); }
+        }
+        .beacon-glow {
+            animation: pulseGlow 14s infinite ease-in-out;
+        }
+
+        /* Scholastic Dropcap Style */
+        .academic-dropcap::first-letter {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            float: left;
+            font-size: 3em;
+            line-height: 0.8;
+            margin: 4px 8px 0px 0;
+            color: #d4af37;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.25);
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+        .typing-cursor {
+            border-right: 2.5px solid #d4af37;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #030303;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #121216;
+            border-radius: 999px;
+            border: 1px solid rgba(212,175,55,0.08);
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+        
+        .asymmetric-pattern {
+            background-size: 80px 80px;
+            background-image: radial-gradient(circle, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-lightBg text-zinc-800 dark:bg-darkBg dark:text-zinc-200 font-sans min-h-screen relative overflow-x-hidden transition-colors duration-300 asymmetric-pattern">
+
+    <!-- REUSABLE GOLD BEACON EMBLEM SVG -->
+    <div class="hidden">
+        <svg id="hiraLogoSvg" viewBox="0 0 100 100" class="w-full h-full text-amber-500 dark:text-amber-400 fill-current">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.4"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 5" opacity="0.6"/>
+            <path d="M 22 72 L 40 44 L 50 54 L 62 38 L 78 72 Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M 32 72 L 40 58 L 48 66 L 56 50 L 68 72 Z" fill="currentColor" opacity="0.15"/>
+            <path d="M 24 75 C 37 68, 48 74, 50 76 C 52 74, 63 68, 76 75" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="50" y1="76" x2="50" y2="82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <polygon points="50,38 43,15 57,15" fill="currentColor" opacity="0.15"/>
+            <line x1="50" y1="38" x2="50" y2="10" stroke="currentColor" stroke-width="1.5" stroke-dasharray="8 2"/>
+            <g transform="translate(50, 10)">
+                <path d="M 0,-8 L 2.5,-2.5 L 8,0 L 2.5,2.5 L 0,8 L -2.5,2.5 L -8,0 L -2.5,-2.5 Z" fill="currentColor"/>
+                <circle cx="0" cy="0" r="1.5" fill="white"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- PORTAL SPLASH INTRO SCREEN -->
+    <div id="splashScreen" class="fixed inset-0 bg-[#030303] z-[9999] flex flex-col items-center justify-center transition-all duration-700">
+        <div class="text-center flex flex-col items-center px-6 max-w-md relative select-none">
+            <div class="absolute -inset-14 bg-amber-500/10 rounded-full blur-3xl beacon-glow animate-pulse"></div>
+            
+            <div class="w-24 h-24 rounded-full border border-amber-500/30 bg-zinc-950 flex items-center justify-center shadow-neon-md relative mb-8 cursor-pointer hover:scale-105 transition-all" onclick="dismissSplash()">
+                <div class="w-18 h-18">
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-amber-400 fill-current">
+                        <use href="#hiraLogoSvg"/>
+                    </svg>
+                </div>
+                <span class="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-550"></span>
+                </span>
+            </div>
+            
+            <div class="h-10 flex items-center justify-center mb-6">
+                <h1 id="welcomeTypewriter" class="text-xl sm:text-2xl font-display uppercase tracking-[0.25em] text-white typing-cursor pr-1"></h1>
+            </div>
+            
+            <div class="w-32 h-[1px] bg-zinc-900 overflow-hidden relative mb-4">
+                <div class="absolute top-0 left-0 h-full w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 animate-[shimmer_1.5s_infinite]"></div>
+            </div>
+            <p class="text-[9px] text-zinc-500 font-mono tracking-widest uppercase">Acquiring Catalog Directories</p>
+        </div>
+    </div>
+
+    <!-- Ambient Glow Drops -->
+    <div class="absolute top-0 left-1/4 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/5 dark:bg-amber-950/10 rounded-full beacon-glow pointer-events-none z-0"></div>
+    <div class="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-yellow-500/5 dark:bg-yellow-950/10 rounded-full beacon-glow pointer-events-none z-0"></div>
+
+    <!-- TOP MODERATOR ACTIVE DESK BANNER -->
+    <div id="editorBanner" class="hidden bg-zinc-950 text-white text-xs py-2 px-4 border-b border-amber-900/20 text-center relative z-40 transition-all shadow-neon-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <span class="flex items-center gap-2 text-left">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span class="font-mono text-[10px] tracking-wider uppercase text-amber-400 font-bold">Editorial Desk Active — Moderation Panel Enabled</span>
+            </span>
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="triggerPurgeDirectory()" class="px-2.5 py-1 bg-red-950/45 hover:bg-red-900 text-red-400 hover:text-white rounded border border-red-900/30 text-[9px] uppercase font-mono tracking-wider transition-all">
+                    <i class="fa-solid fa-dumpster-fire mr-1"></i> Purge All
+                </button>
+                <button onclick="exitEditorMode()" class="px-2.5 py-1 bg-zinc-900 hover:bg-zinc-800 rounded border border-zinc-850 text-[9px] uppercase font-mono tracking-wider transition-all">
+                    <i class="fa-solid fa-lock mr-1"></i> Lock Desk
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APPLICATION CONTAINER -->
+    <div id="app" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col min-h-screen">
+        
+        <!-- ABSOLUTE STANDALONE TOP LOGO (CAPTION-FREE MEDALLION) -->
+        <div class="flex justify-center mt-6 mb-4">
+            <div class="w-20 h-20 rounded-full border border-amber-500/20 dark:border-amber-500/40 bg-white dark:bg-zinc-950 flex items-center justify-center shadow-neon-sm hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="resetFilters()">
+                <div class="w-16 h-16">
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-amber-500 dark:text-amber-400 fill-current">
+                        <use href="#hiraLogoSvg"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- HEADER SECTION & METADATA BRANDING -->
+        <header class="border-b border-zinc-200 dark:border-zinc-900 pb-6 mb-8 text-center">
+            
+            <div class="max-w-2xl mx-auto mb-6">
+                <p class="text-[9px] tracking-[0.3em] text-amber-600 dark:text-amber-400 uppercase font-bold">Volume IV • Issue II</p>
+                <h1 class="text-3xl sm:text-4xl font-display font-black uppercase tracking-[0.15em] text-zinc-950 dark:text-white mt-1 leading-none">
+                    Hira Beacon
+                </h1>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400 font-serif italic mt-2.5 leading-relaxed">
+                    A critical international platform of academic reviews, contemporary prose, and creative essays. Built for focused readings.
+                </p>
+            </div>
+
+            <!-- PRIMARY CATEGORIES SWITCHBOARD -->
+            <div class="flex flex-col gap-6 pt-2">
+                <!-- Center Positioned Languages Bar (image_19bce8.png) -->
+                <div class="flex flex-col gap-1.5 items-center justify-center">
+                    <span class="text-[9px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-globe text-[9px]"></i> Languages:
+                    </span>
+                    <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-1 max-w-full -mx-4 px-4 sm:mx-0 sm:px-0">
+                        <button onclick="selectLanguage('All')" class="lang-tab active px-3.5 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lang="All">
+                            All Editions
+                        </button>
+                        <button onclick="selectLanguage('EN')" class="lang-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lang="EN">
+                            English
+                        </button>
+                        <button onclick="selectLanguage('ML')" class="lang-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lang="ML">
+                            മലയാളം
+                        </button>
+                        <button onclick="selectLanguage('AR')" class="lang-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lang="AR">
+                            العربية
+                        </button>
+                        <button onclick="selectLanguage('UR')" class="lang-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lang="UR">
+                            اردو
+                        </button>
+                        <button onclick="selectLanguage('HI')" class="lang-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lang="HI">
+                            हिन्दी
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Center Positioned Literary Styles Bar (image_19c08a.png) -->
+                <div class="flex flex-col gap-1.5 items-center justify-center border-t border-zinc-100 dark:border-zinc-900/60 pt-4">
+                    <span class="text-[9px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+                        📜 Literary Styles:
+                    </span>
+                    <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-1 max-w-full -mx-4 px-4 sm:mx-0 sm:px-0">
+                        <button onclick="selectLitType('All')" class="lit-tab active px-3.5 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lit="All">
+                            All Styles
+                        </button>
+                        <button onclick="selectLitType('Poem')" class="lit-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lit="Poem">
+                            Poems
+                        </button>
+                        <button onclick="selectLitType('Story')" class="lit-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lit="Story">
+                            Short Stories
+                        </button>
+                        <button onclick="selectLitType('Essay')" class="lit-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lit="Essay">
+                            Critical Essays
+                        </button>
+                        <button onclick="selectLitType('Feature')" class="lit-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lit="Feature">
+                            Features & Reports
+                        </button>
+                        <button onclick="selectLitType('Another')" class="lit-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150" data-lit="Another">
+                            Miscellany
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operational Control HUD -->
+            <div class="flex flex-wrap items-center gap-2 justify-center mt-6">
+                <!-- Theme toggle switch -->
+                <button onclick="toggleTheme()" class="p-2 bg-white dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 text-zinc-650 dark:text-zinc-400 rounded-lg transition-all shadow-sm" title="Toggle theme mode">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Responsive search input bar -->
+                <div class="relative w-full sm:w-56">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-amber-500">
+                        <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search catalog..." 
+                           class="w-full bg-white dark:bg-zinc-950 text-xs text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 rounded-lg pl-8 pr-3 py-2.5 border border-zinc-200 dark:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                </div>
+
+                <!-- Custom bookmarks filter toggle -->
+                <button onclick="toggleBookmarkFilter()" id="bookmarkFilterBtn" 
+                        class="px-3.5 py-2.5 bg-white dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 text-zinc-600 dark:text-zinc-400 rounded-lg text-xs flex items-center gap-2 transition-all shadow-sm">
+                    <i class="fa-regular fa-bookmark text-amber-500" id="bookmarkFilterIcon"></i>
+                    <span>Bookmarks</span>
+                    <span id="bookmarkBadge" class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[9px] px-1.5 py-0.5 rounded font-mono hidden font-bold">0</span>
+                </button>
+
+                <!-- Editorial security key portal gate -->
+                <button onclick="openPasswordModal()" id="editorControlBtn" 
+                        class="px-3.5 py-2.5 bg-white dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 text-zinc-650 dark:text-zinc-400 rounded-lg text-xs flex items-center gap-2 transition-all font-mono shadow-sm">
+                    <i class="fa-solid fa-key text-amber-500" id="editorLockIcon"></i>
+                    <span id="editorBtnText">Lockbox</span>
+                </button>
+
+                <!-- Free publication writer desk trigger -->
+                <button onclick="triggerPublishAction()" class="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded-lg text-xs flex items-center gap-2 transition-all shadow-neon-sm active:scale-95">
+                    <i class="fa-solid fa-pen-nib text-[10px]"></i>
+                    <span>Write Post</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- PREMIUM SHIMMERING GLOW SEPARATOR -->
+        <div class="glow-line-gold mb-10"></div>
+
+        <!-- PENDING MODERATION DESK (LOCKBOX SECURED QUEUE) -->
+        <section id="moderationQueueSection" class="hidden mb-12 bg-amber-50/20 dark:bg-amber-950/10 border border-amber-500/20 rounded-xl p-6 relative overflow-hidden transition-all duration-300 shadow-neon-sm">
+            <div class="absolute -right-20 -top-20 w-44 h-44 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex items-center justify-between border-b border-amber-500/10 pb-4 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-3.5 h-3.5 bg-amber-500 rounded-full animate-pulse shadow-neon-md flex items-center justify-center">
+                        <i class="fa-solid fa-lock text-[8px] text-zinc-950"></i>
+                    </span>
+                    <h3 class="text-xs font-display font-bold tracking-widest text-amber-500 uppercase">Lockbox Submission Queue</h3>
+                </div>
+                <span class="text-[9px] font-mono bg-amber-500/20 text-amber-400 px-2.5 py-0.5 rounded-full border border-amber-500/30" id="pendingCounter">0 Pending Articles</span>
+            </div>
+            
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 font-serif italic max-w-2xl mb-4">
+                Articles submitted by readers are held securely in this pending moderation lockbox. Unlock to review, edit, approve, or discard permanently.
+            </p>
+
+            <div id="pendingQueueContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Injected dynamically in editor authentication modes -->
+            </div>
+        </section>
+
+        <!-- PORTAL DIRECTORY VIEW CONTROLS -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+            <div>
+                <h3 class="text-sm font-display uppercase tracking-widest text-zinc-900 dark:text-white flex items-center gap-2">
+                    <span class="inline-block w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse shadow-neon-sm"></span>
+                    <span id="currentSelectionIndicator" class="font-bold">Journal Catalogue</span>
+                </h3>
+                <p class="text-[9px] font-mono uppercase text-zinc-400 tracking-wider mt-0.5" id="resultsCount">Loading documents...</p>
+            </div>
+            
+            <div class="flex items-center gap-1.5 self-end">
+                <button onclick="setLayout('asymmetric')" id="btnAsym" class="px-3 py-2 bg-white dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-900 text-amber-600 dark:text-amber-400 border border-zinc-200 dark:border-zinc-900 rounded text-xs flex items-center gap-1 transition-all shadow-sm" title="Asymmetrical Grid view">
+                    <i class="fa-solid fa-shapes text-xs"></i>
+                    <span class="text-[9px] uppercase font-mono font-bold">Asymmetrical Grid</span>
+                </button>
+                <button onclick="setLayout('list')" id="btnList" class="p-2 bg-white dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-900 rounded transition-all shadow-sm" title="Standard list list view">
+                    <i class="fa-solid fa-list text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN POST CONTAINER -->
+        <main class="flex-1">
+            <div id="postsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 transition-all duration-300">
+                <!-- Managed dynamically by system templates -->
+            </div>
+
+            <!-- EMPTY DATABASE VIEW -->
+            <div id="emptyState" class="hidden py-16 text-center max-w-sm mx-auto">
+                <div class="w-12 h-12 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-400 dark:text-zinc-600 mx-auto mb-4 border border-zinc-200 dark:border-zinc-800">
+                    <i class="fa-solid fa-book-bookmark text-lg text-amber-500"></i>
+                </div>
+                <h4 class="text-xs font-semibold text-zinc-850 dark:text-zinc-200">The Catalog is Empty</h4>
+                <p class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1.5 leading-relaxed">Adjust active query filters or reset system documents to restore default seed values.</p>
+                <div class="mt-5 flex items-center justify-center gap-2">
+                    <button onclick="resetFilters()" class="px-3 py-1.5 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-[10px] text-zinc-700 dark:text-zinc-300 font-medium rounded transition-all">
+                        Clear Filters
+                    </button>
+                    <button onclick="restoreSeedDatabase()" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-550 text-white text-[10px] font-medium rounded transition-all shadow-neon-sm">
+                        Reset Defaults
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- SCHOLASTIC PORTAL HUD STATS -->
+        <section class="mt-16 border-t border-zinc-200 dark:border-zinc-900 pt-8 pb-8">
+            <div class="glow-line-gold mb-8"></div>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white dark:bg-darkCard p-4 rounded-lg border border-zinc-200 dark:border-zinc-900 flex items-center gap-4 shadow-sm relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-16 h-16 bg-amber-500/5 rounded-full blur-xl"></div>
+                    <div class="w-9 h-9 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded flex items-center justify-center text-base shrink-0 border border-amber-500/20">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-serif font-bold text-zinc-900 dark:text-white" id="statArticles">0</div>
+                        <div class="text-[9px] font-mono text-zinc-400 uppercase tracking-widest font-bold">Writings</div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-darkCard p-4 rounded-lg border border-zinc-200 dark:border-zinc-900 flex items-center gap-4 shadow-sm relative overflow-hidden">
+                    <div class="w-9 h-9 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded flex items-center justify-center text-base shrink-0 border border-amber-500/20">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-serif font-bold text-zinc-900 dark:text-white">5</div>
+                        <div class="text-[9px] font-mono text-zinc-400 uppercase tracking-widest font-bold">Languages</div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-darkCard p-4 rounded-lg border border-zinc-200 dark:border-zinc-900 flex items-center gap-4 shadow-sm relative overflow-hidden">
+                    <div class="w-9 h-9 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded flex items-center justify-center text-base shrink-0 border border-amber-500/20">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-serif font-bold text-zinc-900 dark:text-white" id="statBookmarks">0</div>
+                        <div class="text-[9px] font-mono text-zinc-400 uppercase tracking-widest font-bold">Saved Items</div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-darkCard p-4 rounded-lg border border-zinc-200 dark:border-zinc-900 flex items-center gap-4 shadow-sm relative overflow-hidden">
+                    <div class="w-9 h-9 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded flex items-center justify-center text-base shrink-0 border border-amber-500/20">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-serif font-bold text-zinc-900 dark:text-white" id="statMode">Off</div>
+                        <div class="text-[9px] font-mono text-zinc-400 uppercase tracking-widest font-bold">Editor Mode</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STANDALONE FOOTER -->
+        <footer class="mt-auto border-t border-zinc-200 dark:border-zinc-900 pt-6 pb-4 flex flex-col md:flex-row items-center justify-between text-zinc-500 text-[10px] font-mono uppercase tracking-wider gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-amber-500 rounded-full shadow-neon-sm"></span>
+                <span>Hira Beacon Journal — Scholar Network Directory</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hover:text-amber-500 transition-colors">Advisory Board</a>
+                <a href="#" class="hover:text-amber-500 transition-colors">Submissions</a>
+                <a href="https://lawhat.in" target="_blank" class="hover:text-amber-500 transition-colors">Lawhat Portal</a>
+            </div>
+            <div>
+                <span>&copy; 2026 Hira Beacon. All Rights Reserved.</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- SLIDEOUT DOCUMENT READER DRAWER -->
+    <div id="readModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex justify-end transform translate-x-full transition-transform duration-300 pointer-events-none">
+        <div class="w-full max-w-xl bg-white dark:bg-darkCard border-l border-zinc-200 dark:border-zinc-900 h-full flex flex-col pointer-events-auto shadow-2xl overflow-hidden relative">
+            <div class="absolute -left-10 top-1/4 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl"></div>
+            
+            <div class="p-4 border-b border-zinc-200 dark:border-zinc-900 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-950/50 relative z-10">
+                <div class="flex items-center gap-3">
+                    <button onclick="closeReadModal()" class="w-8 h-8 rounded-full bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-650 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-900 flex items-center justify-center transition-all shadow-sm">
+                        <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                    </button>
+                    <div>
+                        <span class="text-[9px] font-mono tracking-widest text-zinc-400 uppercase" id="readModalCategory">Category</span>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <span id="readModalLangBadge" class="text-[8px] bg-amber-500/10 text-amber-600 dark:text-amber-400 px-1.5 py-0.5 rounded font-mono font-bold">EN</span>
+                            <span id="readModalTypeBadge" class="text-[8px] bg-zinc-100 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 px-1.5 py-0.5 rounded font-mono font-bold">POEM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <button onclick="adjustFontSize(-1)" class="text-[10px] font-mono text-zinc-500 hover:text-zinc-850 dark:hover:text-white px-2 py-1 bg-white dark:bg-zinc-900 rounded border border-zinc-200 dark:border-zinc-900 shadow-sm" title="Decrease size">A-</button>
+                    <button onclick="adjustFontSize(1)" class="text-[10px] font-mono text-zinc-500 hover:text-zinc-850 dark:hover:text-white px-2 py-1 bg-white dark:bg-zinc-900 rounded border border-zinc-200 dark:border-zinc-900 shadow-sm" title="Increase size">A+</button>
+                    <button onclick="toggleSaveFromModal()" class="w-8 h-8 rounded-full bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-400 hover:text-amber-500 border border-zinc-200 dark:border-zinc-900 flex items-center justify-center transition-all shadow-sm" id="modalSaveBtn">
+                        <i class="fa-regular fa-bookmark text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 sm:p-8 relative z-10" id="readModalContent">
+                <div id="readerCoverImageContainer" class="hidden mb-6 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-900 shadow-md">
+                    <img id="readerCoverImage" src="" class="w-full h-52 object-cover" alt="Cover Header Preview">
+                </div>
+
+                <div class="space-y-6">
+                    <h1 class="text-xl sm:text-2xl font-editorial font-bold text-zinc-955 dark:text-white leading-tight" id="readerTitle">Title</h1>
+                    
+                    <div class="flex items-center gap-3 py-4 border-y border-zinc-100 dark:border-zinc-900">
+                        <div class="w-8 h-8 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-xs shrink-0 border border-amber-500/20" id="readerAvatar">
+                            <span>H</span>
+                        </div>
+                        <div>
+                            <div class="text-xs font-semibold text-zinc-905 dark:text-zinc-200" id="readerAuthor">Author</div>
+                            <div class="text-[10px] text-zinc-400 font-mono" id="readerMeta">Published...</div>
+                        </div>
+                    </div>
+
+                    <div class="prose dark:prose-invert max-w-none text-zinc-700 dark:text-zinc-300 leading-relaxed font-serif space-y-5 text-sm" id="readerBodyText">
+                        <!-- Loaded Dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950/80 flex items-center justify-between relative z-10">
+                <button onclick="copyArticleLink()" class="px-3 py-1.5 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded text-xs font-semibold flex items-center gap-1.5 border border-zinc-200 dark:border-zinc-900 shadow-sm">
+                    <i class="fa-solid fa-link text-amber-500 text-[10px]"></i> Copy Citation Link
+                </button>
+                <div class="flex items-center gap-1.5">
+                    <button id="readerEditBtn" onclick="editPostFromReader()" class="hidden px-3.5 py-1.5 bg-amber-600 hover:bg-amber-550 text-white font-semibold rounded text-xs flex items-center gap-1 shadow-neon-sm">
+                        <i class="fa-solid fa-pen-to-square text-[10px]"></i> Edit
+                    </button>
+                    <button onclick="closeReadModal()" class="px-4 py-1.5 bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 font-semibold rounded text-xs transition-colors shadow-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOCKBOX AUTH MODAL GATE -->
+    <div id="passwordModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-full max-w-sm bg-white dark:bg-darkCard border border-zinc-200 dark:border-zinc-900 rounded-xl shadow-2xl p-6 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl"></div>
+            <button onclick="closePasswordModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-650 dark:hover:text-white transition-colors z-10">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <div class="text-center mb-6 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-amber-500/10 text-amber-655 dark:text-amber-400 flex items-center justify-center mx-auto mb-3 text-base border border-amber-500/20">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="text-xs font-display uppercase tracking-widest text-zinc-950 dark:text-white">Editorial Gate</h3>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1.5 leading-relaxed">Enter Editorial credentials to enable review edits, approvals, deletions, and catalog purging properties.</p>
+            </div>
+
+            <form onsubmit="verifyPassword(event)" class="space-y-4 text-xs relative z-10">
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Lockbox Password</label>
+                    <div class="relative">
+                        <input type="password" id="editorPasswordInput" required placeholder="Enter Security Key..." 
+                               class="w-full bg-zinc-50 dark:bg-zinc-900 text-zinc-950 dark:text-white border border-zinc-200 dark:border-zinc-900 rounded-lg pl-3 pr-10 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-zinc-500 hover:text-zinc-700 dark:hover:text-white">
+                            <i id="passwordEyeIcon" class="fa-regular fa-eye text-xs"></i>
+                        </button>
+                    </div>
+                    <span id="passwordFeedback" class="text-[10px] text-red-500 hidden font-mono">Incorrect credential. Access denied.</span>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closePasswordModal()" class="px-3.5 py-1.5 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-550 dark:text-zinc-400 rounded text-xs font-semibold">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded text-xs shadow-neon-sm">
+                        Unlock Gate
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- COMPOSE / DRAFT ARTICLE COMPOSER MODAL -->
+    <div id="publishModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-[60] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-full max-w-xl bg-white dark:bg-darkCard border border-zinc-200 dark:border-zinc-900 rounded-xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col relative animate-[fadeIn_0.3s_ease-out]">
+            <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl"></div>
+            
+            <div class="p-4 border-b border-zinc-200 dark:border-zinc-900 flex items-center justify-between relative z-10 bg-zinc-50/50 dark:bg-zinc-950/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-amber-500/10 text-amber-655 dark:text-amber-400 flex items-center justify-center text-xs border border-amber-500/20 shadow-neon-sm">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-zinc-955 dark:text-white" id="publishModalTitle">Compose Literature Piece</h3>
+                        <p class="text-[9px] text-amber-600 dark:text-amber-400 font-mono uppercase tracking-wider font-semibold">Submitted drafts will wait inside the Lockbox pending review</p>
+                    </div>
+                </div>
+                <button onclick="closePublishModal()" class="text-zinc-400 hover:text-zinc-600 dark:hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <form id="publishForm" onsubmit="handlePublishSubmit(event)" class="p-5 space-y-4 flex-1 text-xs relative z-10">
+                <input type="hidden" id="editPostId" value="">
+
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Title of Composition</label>
+                    <input type="text" id="postTitle" required placeholder="e.g., Intellectual Hermitage: Epistemic Solitude..." 
+                           class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Author Name</label>
+                        <input type="text" id="postAuthor" required placeholder="e.g., Prof. Sarah Vance" 
+                               class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Department / Section</label>
+                        <select id="postCategory" required 
+                                class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                            <option value="Academic Studies">📁 Academic Studies</option>
+                            <option value="Literary Corner">📁 Literary Corner</option>
+                            <option value="News & Bulletins">📁 News & Bulletins</option>
+                            <option value="Children Domain">📁 Children Domain</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Scope Language</label>
+                        <select id="postLanguage" required 
+                                class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                            <option value="EN">English</option>
+                            <option value="ML">മലയാളം (Malayalam)</option>
+                            <option value="AR">العربية (Arabic)</option>
+                            <option value="UR">اردو (Urdu)</option>
+                            <option value="HI">हिन्दी (Hindi)</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Literary Style</label>
+                        <select id="postLitType" required 
+                                class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all">
+                            <option value="Poem">Poem</option>
+                            <option value="Story">Short Story</option>
+                            <option value="Essay">Essay</option>
+                            <option value="Feature">Feature</option>
+                            <option value="Another">Another</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Cover Illustration / Photo</label>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-zinc-50 dark:bg-zinc-900/60 p-3 rounded-lg border border-zinc-200 dark:border-zinc-900">
+                        <div class="flex items-center gap-2">
+                            <input type="file" id="postPhotoFile" accept="image/*" class="hidden" onchange="processLocalPhotoUpload(this)">
+                            <button type="button" onclick="document.getElementById('postPhotoFile').click()" class="px-4 py-2 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 hover:border-amber-500/40 rounded text-xs text-zinc-700 dark:text-zinc-300 font-semibold transition-all flex items-center gap-2 shrink-0 shadow-sm">
+                                <i class="fa-solid fa-cloud-arrow-up text-amber-500"></i> Upload Local Image
+                            </button>
+                            <input type="hidden" id="postPhotoBase64" value="">
+                        </div>
+                        <div class="flex items-center justify-between flex-1 gap-2 min-w-0">
+                            <span id="photoFileName" class="text-[10px] text-zinc-550 dark:text-zinc-400 truncate max-w-[200px]">No image selected</span>
+                            <button type="button" id="clearPhotoBtn" onclick="clearSelectedPhoto()" class="hidden text-[10px] text-red-500 hover:text-red-600 font-semibold font-mono uppercase">
+                                <i class="fa-solid fa-trash-can mr-1"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                    <div id="photoPreviewContainer" class="hidden pt-1">
+                        <img id="photoPreviewImg" src="" class="h-20 w-auto rounded object-cover border border-amber-500/20" alt="Selection Preview">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Short Abstract / Preview</label>
+                    <textarea id="postAbstract" required rows="2" placeholder="Write a brief, engaging summary of your composition..." 
+                              class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none transition-all"></textarea>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">Full text of Publication</label>
+                    <textarea id="postContent" required rows="5" placeholder="Press Enter twice between sections to design paragraph structures..." 
+                              class="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-900 rounded px-3 py-2 text-xs text-zinc-955 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500 font-serif transition-all"></textarea>
+                </div>
+
+                <div class="space-y-1 pt-1">
+                    <div class="flex justify-between items-center text-[10px] font-mono uppercase text-zinc-400 font-bold">
+                        <span id="readTimeLabel" class="text-amber-500 font-semibold">Reading Time: 5 Minutes</span>
+                    </div>
+                    <input type="range" id="postReadTime" min="1" max="25" value="5" oninput="document.getElementById('readTimeLabel').innerText = 'Reading Time: ' + this.value + ' Minutes'" 
+                           class="w-full accent-amber-500 bg-zinc-250 dark:bg-zinc-900 h-1.5 rounded appearance-none cursor-pointer">
+                </div>
+
+                <div class="pt-4 border-t border-zinc-150 dark:border-zinc-900 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closePublishModal()" class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-550 dark:text-zinc-400 rounded font-bold transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit" id="publishSubmitBtn" class="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded shadow-neon-sm transition-all">
+                        <i class="fa-solid fa-paper-plane mr-1.5 text-[10px]"></i> Submit to Lockbox
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOM HTML MODAL FOR SENSITIVE CONFIRMATIONS -->
+    <div id="confirmModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-[200] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+        <div class="w-full max-w-sm bg-white dark:bg-darkCard border border-zinc-250 dark:border-zinc-900 rounded-xl p-5 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-8 -top-8 w-20 h-20 bg-red-500/5 rounded-full blur-xl"></div>
+            <button id="confirmCloseIconBtn" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-850 dark:hover:text-white transition-colors" title="Cancel operation">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-sm shrink-0 border border-red-500/20 shadow-sm">
+                    <i class="fa-solid fa-triangle-exclamation animate-bounce"></i>
+                </div>
+                <h4 class="text-xs font-bold text-zinc-950 dark:text-white" id="confirmTitle">Confirm Action</h4>
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-2.5 leading-relaxed" id="confirmMessage">Confirming this instruction deletes catalog history globally and permanently.</p>
+            <div class="flex justify-end gap-2 pt-4 text-xs">
+                <button id="confirmCancelBtn" class="px-3.5 py-1.5 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-550 rounded font-semibold transition-colors">
+                    No, Cancel
+                </button>
+                <button id="confirmProceedBtn" class="px-4 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded font-bold shadow-sm transition-colors">
+                    Yes, Proceed
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATUS BANNER ALERTS HUD (TOAST) -->
+    <div id="toast" class="fixed bottom-4 right-4 z-[120] transform translate-y-20 opacity-0 transition-all duration-300 bg-white dark:bg-darkCard border border-zinc-200 dark:border-zinc-900 text-zinc-850 dark:text-white px-4 py-3 rounded-lg shadow-neon-sm flex items-center gap-2.5">
+        <div class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-[10px]">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <span id="toastMessage" class="text-xs font-semibold text-zinc-650 dark:text-zinc-300">Action Complete</span>
+    </div>
+
+    <!-- TOUCH FLOATING TRIGGER PANEL FOR FLUTTER APK INSTALLATION -->
+    <div class="fixed right-0 top-1/3 z-40 transform translate-y-1/2">
+        <button onclick="toggleApkSlider(true)" class="bg-amber-600 hover:bg-amber-500 text-white font-mono text-[10px] tracking-widest uppercase font-bold py-4 px-2.5 rounded-l-xl shadow-neon-md flex flex-col items-center gap-2 border-l border-y border-amber-400/30 group transition-all duration-300 hover:pl-4" title="Simulate APK Mobile App Installation">
+            <i class="fa-brands fa-android text-base animate-bounce"></i>
+            <span class="writing-mode-vertical [writing-mode:vertical-lr] rotate-180">Install APK</span>
+            <svg class="w-3.5 h-3.5 fill-current mt-1 text-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                <path d="M14.3 2L13.6 8H20L10.7 22L11.4 16H5L14.3 2Z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- SLIDING FLUTTER MOBILE APP PANEL -->
+    <div id="apkSlider" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-[150] flex justify-end transform translate-x-full transition-transform duration-500 pointer-events-none">
+        <div class="w-full max-w-md bg-zinc-950 border-l border-amber-500/20 h-full flex flex-col pointer-events-auto shadow-2xl overflow-hidden relative">
+            <div class="h-1.5 w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600"></div>
+            
+            <div class="p-5 border-b border-zinc-900 flex items-center justify-between bg-zinc-950 relative z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-amber-500/10 rounded-lg flex items-center justify-center border border-amber-500/20 shadow-neon-sm">
+                        <i class="fa-brands fa-android text-amber-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-display font-bold tracking-widest text-white uppercase">Hira APK Installer</h3>
+                        <p class="text-[9px] text-zinc-500 font-mono uppercase tracking-wider">Engine Platform: Flutter v3.22</p>
+                    </div>
+                </div>
+                <button onclick="toggleApkSlider(false)" class="w-8 h-8 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition-all border border-zinc-800" title="Close slider">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col justify-between" id="apkInstallerBody">
+                <div class="space-y-6">
+                    <div class="bg-zinc-900/50 border border-zinc-900 rounded-xl p-5 relative overflow-hidden text-center shadow-inner-gold">
+                        <div class="absolute -right-10 -top-10 w-24 h-24 bg-amber-500/5 rounded-full blur-xl"></div>
+                        
+                        <div class="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center bg-zinc-950 rounded-2xl border border-amber-500/30 shadow-neon-sm">
+                            <div class="w-12 h-12">
+                                <svg viewBox="0 0 100 100" class="w-full h-full text-amber-400 fill-current">
+                                    <use href="#hiraLogoSvg"/>
+                                </svg>
+                            </div>
+                            <span class="absolute -bottom-1 -right-1 w-5 h-5 bg-zinc-900 border border-amber-500/30 rounded-full flex items-center justify-center shadow-sm">
+                                <svg class="w-3 h-3 text-amber-400 fill-current" viewBox="0 0 24 24">
+                                    <path d="M13.55 1.77L2 13.32l4.89 4.89L22 4.66zM22 13.55l-4.89-4.89L12.22 13.55l4.89 4.89z" />
+                                </svg>
+                            </span>
+                        </div>
+
+                        <h4 class="text-xs font-display font-bold tracking-wider text-white uppercase font-sans">Hira Mobile Application</h4>
+                        <p class="text-[10px] text-zinc-400 font-serif italic mt-1">"A Cross-Platform Scholarly Hub for Native Android"</p>
+                        
+                        <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-zinc-900 text-[9px] font-mono text-zinc-500">
+                            <div>
+                                <span class="block text-amber-400 font-bold">v1.2.0-F</span>
+                                <span>Build</span>
+                            </div>
+                            <div class="border-x border-zinc-900">
+                                <span class="block text-zinc-350 font-bold">18.4 MB</span>
+                                <span>APK Size</span>
+                            </div>
+                            <div>
+                                <span class="block text-zinc-350 font-bold">Android 8+</span>
+                                <span>Compatibility</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-zinc-900 bg-zinc-950 rounded-2xl p-5 relative flex flex-col items-center justify-center min-h-[180px] shadow-inner-gold overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-amber-500/[0.01] to-transparent pointer-events-none"></div>
+                        
+                        <div id="apkStateIdle" class="text-center space-y-3">
+                            <i class="fa-solid fa-mobile-screen text-4xl text-zinc-700 animate-pulse"></i>
+                            <p class="text-[10px] font-mono text-zinc-500 tracking-widest uppercase">Ready to compile APK package</p>
+                        </div>
+
+                        <div id="apkStateProgress" class="hidden w-full text-center space-y-4">
+                            <div class="flex items-center justify-between text-[10px] font-mono">
+                                <span id="apkInstallStage" class="text-amber-500 font-bold uppercase tracking-widest animate-pulse">Downloading...</span>
+                                <span id="apkPercent" class="text-zinc-400">0%</span>
+                            </div>
+                            <div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-zinc-900">
+                                <div id="apkProgressBar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 w-0 transition-all duration-200"></div>
+                            </div>
+                            <p id="apkSubtext" class="text-[9px] text-zinc-500 font-mono uppercase tracking-widest">Initializing Flutter dependencies...</p>
+                        </div>
+
+                        <div id="apkStateSuccess" class="hidden text-center space-y-3 animate-[fadeIn_0.5s_ease-out]">
+                            <div class="w-12 h-12 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg border border-amber-500/30 mx-auto shadow-neon-sm animate-bounce">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="space-y-1.5">
+                                <p class="text-xs font-display font-bold text-white uppercase tracking-wider">Installation Finished!</p>
+                                <p class="text-[10px] text-zinc-400 font-serif italic">"App sandbox configured. Ready to run."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button id="apkInstallBtn" onclick="startSimulatedApkInstall()" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-mono text-xs uppercase tracking-widest font-bold rounded-lg transition-all shadow-neon-sm active:scale-98 flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-android"></i>
+                        <span>Start Flutter Compilation</span>
+                    </button>
+                    <button id="apkResetBtn" onclick="resetApkSim()" class="hidden w-full py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-400 font-mono text-[10px] uppercase tracking-widest rounded-lg border border-zinc-900 transition-all">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Reset Simulator
+                    </button>
+                    <p class="text-[8px] text-zinc-650 text-center font-mono leading-normal">
+                        This visualizer simulates building the native Android package dynamically using a Flutter sandbox compiler.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REAL-TIME FIRESTORE DATABASE LOGIC MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Configuration setting & strictly scoped variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'hira-beacon-journal';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+
+        let db = null;
+        let auth = null;
+        let user = null;
+
+        // Dynamic asymmetric initial data sets
+        const SEED_POSTS = [
+            {
+                id: "1",
+                title: "Contemplating the Silence: Epistemic Solitude and the Mind",
+                author: "Dr. Arthur Vance",
+                category: "Academic Studies",
+                litType: "Essay",
+                language: "EN",
+                status: "published",
+                abstract: "An analytical inquiry exploring intellectual isolation ('Contemplation') as a foundational component for cognitive restoration, away from modern digital acceleration.",
+                content: `Contemplation is not merely a state of physical quietude, but a profound architecture of the human intellect. In our contemporary digital acceleration, we have systematically traded depth for convenience. By examining the historical framework of intellectual hermits and academic isolation, we explore how isolation serves as the absolute matrix for critical theory.\n\nThe human cognitive system requires periodic detachment. In complete solitude, the cognitive baseline resets, giving rise to complex logical pathways and authentic inquiry. By building dedicated periods of structured isolation, academic institutions can restore the deep inquiry that has been lost to digital exhaustion.\n\nContemplation is the gateway to systemic change. It is within these deep crevices of focus that civilization reclaims its direction.`,
+                readTime: 10,
+                date: "June 17, 2026",
+                featured: true,
+                image: ""
+            },
+            {
+                id: "2",
+                title: "കവിതയുടെ മൗനം: വാക്കുകളിലെ ശൂന്യതയും സത്യവും",
+                author: "അഞ്ജന കൃഷ്ണൻ",
+                category: "Literary Corner",
+                litType: "Poem",
+                language: "ML",
+                status: "published",
+                abstract: "മലയാള കാവ്യ സങ്കല്പങ്ങളിലെ മൗനത്തിന്റെയും ശൂന്യതയുടെയും സൗന്ദര്യാത്മക വശങ്ങളെക്കുറിച്ചുള്ള ലളിതമായ ആലോചന.",
+                content: `കവിത എഴുതുമ്പോൾ വരികളിൽ നിറയ്ക്കുന്ന വാക്കുകളേക്കാൾ മനോഹരം ചിലപ്പോൾ വരികൾക്ക് ഇടയിലെ ശൂന്യതയാണ്. മലയാളത്തിന്റെ പഴയ കാല കവികൾ ഈ ശാന്തതയെ തങ്ങളുടെ കാവ്യങ്ങളിൽ ഭംഗിയായി സന്നിവേശിപ്പിച്ചിട്ടുണ്ട്.\n\nനിശബ്ദത ഒരു ആയുധമാണ്. വികാരങ്ങൾ മുഴുവൻ ഒതുക്കി നിർത്തി ഒടുവിൽ അത് വായനക്കാരിലേക്ക് പടർത്തുന്ന കാവ്യ തന്ത്രം ഇന്നും കവികൾ ഉപയോഗിക്കുന്നു. കവിതയുടെ മൗനം ഒരു വായനക്കാരന്റെ ചിന്തകളെയാണ് ഉദ്ദീപിപ്പിക്കുന്നത്.\n\nനമ്മുടെ മനസ്സിലെ ശബ്ദങ്ങൾ അടങ്ങുമ്പോൾ മാത്രമേ കവിതയുടെ വരികൾക്ക് പിന്നിലെ യഥാർത്ഥ അർത്ഥങ്ങൾ പൂർണ്ണമായി മനസ്സിലാക്കാൻ സാധിക്കുകയുള്ളൂ.`,
+                readTime: 6,
+                date: "June 16, 2026",
+                featured: false,
+                image: ""
+            },
+            {
+                id: "3",
+                title: "ادبیات اور شعور: سماجی اخلاقیات کی فکری راہیں",
+                author: "ڈاکٹر جاوید اقبال",
+                category: "Academic Studies",
+                litType: "Essay",
+                language: "UR",
+                status: "published",
+                abstract: "ادب کے انسانی فہم و شعور پر گہرے اثرات اور عصری سماج میں کلاسیکی اردو تحریروں کی افادیت پر تنقیدی نظر۔",
+                content: `کسی بھی مہذب معاشرے کی فکری اور اخلاقی بقا کا انحصار اس کے اعلیٰ اور سنجیدہ ادب پر ہوتا ہے۔ ادب محض تفریح کا ذریعہ نہیں بلکہ یہ معاشرے کے اجتماعی شعور کا امین ہوتا ہے۔\n\nاردو نثر اور شاعری نے ہر دور میں ظلم اور بے حسی کے خلاف آواز بلند کی ہے۔ آج کے مادہ پرست دور میں ہمیں اپنی نوجوان نسل کو کلاسیکی اور تعمیری فکر سے روشناس کرانے کی سخت ضرورت ہے۔\n\nجب تک ہم سنجیدہ اور فکری کتب کے مطالعے کی روایت کو بحال نہیں کریں گے، فکری افلاس کی دلدل سے نکلنا ناممکن رہے گا۔`,
+                readTime: 8,
+                date: "June 15, 2026",
+                featured: false,
+                image: ""
+            },
+            {
+                id: "4",
+                title: "सत्य का साक्षात्कार: जीवन मूल्य और नैतिक दर्शन",
+                author: "राजीव नयन त्रिपाठी",
+                category: "Children Domain",
+                litType: "Story",
+                language: "HI",
+                status: "published",
+                abstract: "सच्चाई और आत्मबल पर आधारित बच्चों के लिए एक मार्मिक और शिक्षाप्रद पारंपरिक वृत्तांत।",
+                content: `एक समृद्ध नगर में एक अत्यंत साधारण बालक रहता था, जिसका नाम राघव था। राघव की माँ ने उसे सिखाया था कि सत्य का मार्ग कठिन हो सकता है, परंतु अंततः विजय सत्य की ही होती है।\n\nएक बार राजदरबार में राघव की सच्चाई की परीक्षा ली गई। मंत्रियों ने प्रलोभन दिए, परंतु उसने बिना डरे राजा के समक्ष सत्य कह दिया। उसकी इस सत्य निष्ठा से प्रभावित होकर राजा ने उसे सम्मानित किया।\n\nयह लघु कथा हमारे जीवन में सत्य और ईमानदारी के महत्व को उजागर करती है। राघव का चरित्र बच्चों को नैतिक मार्ग पर चलने की अमर प्रेरणा देता है।`,
+                readTime: 5,
+                date: "June 14, 2026",
+                featured: false,
+                image: ""
+            },
+            {
+                id: "5",
+                title: "الرواية التاريخية وتأصيل الهوية المعاصرة",
+                author: "د. هاني الهاشمي",
+                category: "Academic Studies",
+                litType: "Essay",
+                language: "AR",
+                status: "published",
+                abstract: "دراسة عميقة حول دور السرد الروائي والتأريخي في حفظ التراث الإنساني ومقاومة طمس الهوية الثقافية.",
+                content: `لم تكن الرواية التاريخية يوماً مجرد سرد خيالي لأحداث قديمة، بل هي حصن ثقافي يحفظ الهوية من رياح التغيير العاتية وطمس التراث الحضاري.\n\nإن الكاتب المبدع يوظف الذاكرة الجماعية ليصنع منها جسراً يربط أجيال الحاضر بأمجاد وتحديات الماضي، محفزاً بذلك الوعي السياسي والاجتماعي.\n\nفي عصر العولمة المتسارع، تصبح الكتابة التاريخية الملتزمة ضرورة قصوى لتأصيل القيم الفكرية والروحية لشباب اليوم المشتتين رقمياً.`,
+                readTime: 9,
+                date: "June 13, 2026",
+                featured: false,
+                image: ""
+            },
+            {
+                id: "6",
+                title: "The Symphony of Monochrome Calligraphy",
+                author: "Farhan Siddique",
+                category: "Literary Corner",
+                litType: "Another",
+                language: "EN",
+                status: "published",
+                abstract: "Analyzing how structural modern line-art can visually communicate deep abstract texts on simple monochrome canvases.",
+                content: `Monochrome line-art communicates text not through raw color, but through pure, naked rhythm. When modern artists synthesize classical lettering on minimal black backgrounds, they command immediate focus.\n\nThis article reviews the current visual aesthetics of global calligraphy exhibitions where contrast lines, high texture, and emerald highlights guide the viewer through absolute spatial geometry. By stripping the medium of colorful distractions, monochrome letters bridge classical writing systems with 21st-century architectural minimalism.\n\nIt is the final triumph of form: letters transformed completely into beautiful, spatial architecture.`,
+                readTime: 6,
+                date: "June 12, 2026",
+                featured: false,
+                image: ""
+            }
+        ];
+
+        let posts = [];
+        let savedPostIds = [];
+        let filterLang = 'All';
+        let filterLitType = 'All';
+        let searchQuery = '';
+        let viewLayout = 'asymmetric'; 
+        let showBookmarksOnly = false;
+        let isEditorModeActive = false;
+        let activeReadPost = null;
+        let readerFontSize = 15; 
+
+        // Safe database fallback controls
+        function safeGetLocalItem(key) {
+            try { return localStorage.getItem(key); } catch(e) { return null; }
+        }
+        function safeSetLocalItem(key, value) {
+            try { localStorage.setItem(key, value); } catch(e) {}
+        }
+
+        // TYPEWRITER LOADING ANIMATION
+        function runTypewriterAndStart() {
+            const target = document.getElementById('welcomeTypewriter');
+            const phrase = "Welcome to Hira Beacon";
+            let idx = 0;
+            
+            function typeNextLetter() {
+                if (idx < phrase.length) {
+                    target.textContent += phrase.charAt(idx);
+                    idx++;
+                    setTimeout(typeNextLetter, 75);
+                } else {
+                    target.classList.remove('typing-cursor');
+                    setTimeout(() => {
+                        startDatabaseSync();
+                    }, 400); // Super fast dismiss
+                }
+            }
+            typeNextLetter();
+        }
+
+        // Auth before Query verification pipeline
+        async function startDatabaseSync() {
+            if (!firebaseConfig) {
+                fallbackLocalDatabase();
+                return;
+            }
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // RULE 3 - Custom auth token or fallback anonymous authenticate
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                if (auth.currentUser) {
+                    setupRealtimeDatabaseSync();
+                } else {
+                    fallbackLocalDatabase();
+                }
+            } catch(e) {
+                console.warn("Realtime cloud disabled. Operating safe local database layer.", e);
+                fallbackLocalDatabase();
+            }
+        }
+
+        // REALTIME CLOUD DB CONFIGURATION (RULE 1 & 2 compliant)
+        function setupRealtimeDatabaseSync() {
+            if (!auth.currentUser) return;
+            
+            // STRICT COLLECTION PATH (RULE 1)
+            const postsCol = collection(db, 'artifacts', appId, 'public', 'data', 'posts');
+            
+            onSnapshot(postsCol, async (snapshot) => {
+                let synced = [];
+                snapshot.forEach(docSnap => {
+                    synced.push({ ...docSnap.data(), id: docSnap.id });
+                });
+
+                if (synced.length === 0) {
+                    // Seed initial cloud assets on first-run but immediately display them locally first!
+                    posts = [...SEED_POSTS];
+                    renderPosts();
+                    updateStats();
+                    dismissSplash();
+
+                    // Seed background writes
+                    for (const seed of SEED_POSTS) {
+                        try {
+                            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', seed.id);
+                            await setDoc(docRef, seed);
+                        } catch(err) {
+                            console.warn("Cloud background seeding skipped/throttled: ", err);
+                        }
+                    }
+                } else {
+                    // Clean sort processed directly in memory (RULE 2 compliant)
+                    posts = synced.sort((a, b) => Number(b.id) - Number(a.id));
+                    renderPosts();
+                    renderPendingQueue();
+                    updateStats();
+                    dismissSplash();
+                }
+            }, (error) => {
+                console.error("Firestore onSnapshot subscription failed, falling back locally:", error);
+                fallbackLocalDatabase();
+            });
+        }
+
+        function fallbackLocalDatabase() {
+            const storedPosts = safeGetLocalItem('hira_posts_db');
+            if (storedPosts) {
+                posts = JSON.parse(storedPosts);
+            } else {
+                posts = [...SEED_POSTS];
+                safeSetLocalItem('hira_posts_db', JSON.stringify(posts));
+            }
+            renderPosts();
+            renderPendingQueue();
+            updateStats();
+            dismissSplash();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const localSaved = safeGetLocalItem('hira_bookmarks_db');
+            if (localSaved) {
+                savedPostIds = JSON.parse(localSaved);
+            }
+            
+            const localEditor = sessionStorage.getItem('hira_editor_auth');
+            if (localEditor === 'active') {
+                enableEditorModeUI();
+            } else {
+                exitEditorMode();
+            }
+
+            initTheme();
+            runTypewriterAndStart();
+        });
+
+        // VISUAL CONFIGURATION
+        function initTheme() {
+            const storedTheme = safeGetLocalItem('hira_theme');
+            if (storedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = "fa-solid fa-sun text-amber-600 animate-[spin_10s_linear_infinite]";
+            } else {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = "fa-solid fa-moon text-amber-400";
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            safeSetLocalItem('hira_theme', isDark ? 'dark' : 'light');
+            initTheme();
+        }
+
+        function dismissSplash() {
+            const splash = document.getElementById('splashScreen');
+            if (splash) {
+                splash.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 400);
+            }
+        }
+
+        // CONFIRM DIALOG MODAL
+        function triggerCustomConfirm(title, message, proceedCallback) {
+            const modal = document.getElementById('confirmModal');
+            document.getElementById('confirmTitle').innerText = title;
+            document.getElementById('confirmMessage').innerText = message;
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+
+            const proceedBtn = document.getElementById('confirmProceedBtn');
+            const cancelBtn = document.getElementById('confirmCancelBtn');
+            const closeIconBtn = document.getElementById('confirmCloseIconBtn');
+
+            const cleanProceed = proceedBtn.cloneNode(true);
+            const cleanCancel = cancelBtn.cloneNode(true);
+            const cleanCloseIcon = closeIconBtn.cloneNode(true);
+            
+            proceedBtn.parentNode.replaceChild(cleanProceed, proceedBtn);
+            cancelBtn.parentNode.replaceChild(cleanCancel, cancelBtn);
+            closeIconBtn.parentNode.replaceChild(cleanCloseIcon, closeIconBtn);
+
+            const hideConfirmModal = () => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100');
+            };
+
+            cleanProceed.addEventListener('click', () => {
+                hideConfirmModal();
+                proceedCallback();
+            });
+
+            cleanCancel.addEventListener('click', hideConfirmModal);
+            cleanCloseIcon.addEventListener('click', hideConfirmModal);
+
+            modal.onclick = function(e) {
+                if (e.target === modal) hideConfirmModal();
+            };
+        }
+
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const confirmModal = document.getElementById('confirmModal');
+                if (confirmModal && !confirmModal.classList.contains('pointer-events-none')) {
+                    confirmModal.classList.add('opacity-0', 'pointer-events-none');
+                }
+                closeReadModal();
+                closePasswordModal();
+                closePublishModal();
+            }
+        });
+
+        // LOCKBOX MODERATOR ACCESS PANEL
+        function openPasswordModal() {
+            if (isEditorModeActive) {
+                exitEditorMode();
+                return;
+            }
+            document.getElementById('editorPasswordInput').value = '';
+            document.getElementById('passwordFeedback').classList.add('hidden');
+            
+            const modal = document.getElementById('passwordModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            document.getElementById('editorPasswordInput').focus();
+        }
+
+        function closePasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('editorPasswordInput');
+            const icon = document.getElementById('passwordEyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = "fa-regular fa-eye-slash text-amber-500 text-xs";
+            } else {
+                input.type = 'password';
+                icon.className = "fa-regular fa-eye text-zinc-400 text-xs";
+            }
+        }
+
+        function verifyPassword(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('editorPasswordInput').value;
+            const reversedB64 = btoa(inputVal.split('').reverse().join(''));
+            
+            if (reversedB64 === "NjJrMmdvbGJhcmlo") {
+                sessionStorage.setItem('hira_editor_auth', 'active');
+                enableEditorModeUI();
+                closePasswordModal();
+                showToast("Editor Desk Unlocked.");
+            } else {
+                document.getElementById('passwordFeedback').classList.remove('hidden');
+            }
+        }
+
+        function enableEditorModeUI() {
+            isEditorModeActive = true;
+            document.getElementById('editorBanner').classList.remove('hidden');
+            document.getElementById('moderationQueueSection').classList.remove('hidden');
+            
+            const btnText = document.getElementById('editorBtnText');
+            const btnIcon = document.getElementById('editorLockIcon');
+            if(btnText) btnText.innerText = "Lock Box";
+            if(btnIcon) btnIcon.className = "fa-solid fa-unlock-keyhole text-amber-400";
+
+            renderPosts();
+            renderPendingQueue();
+            updateStats();
+        }
+
+        function exitEditorMode() {
+            isEditorModeActive = false;
+            sessionStorage.removeItem('hira_editor_auth');
+            document.getElementById('editorBanner').classList.add('hidden');
+            document.getElementById('moderationQueueSection').classList.add('hidden');
+            
+            const btnText = document.getElementById('editorBtnText');
+            const btnIcon = document.getElementById('editorLockIcon');
+            if(btnText) btnText.innerText = "Lockbox";
+            if(btnIcon) btnIcon.className = "fa-solid fa-key text-amber-500";
+
+            renderPosts();
+            updateStats();
+            showToast("Editorial access closed.");
+        }
+
+        // SELECTIONS & FILTERS
+        function selectLanguage(lang) {
+            filterLang = lang;
+            const tabs = document.querySelectorAll('.lang-tab');
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-lang') === lang) {
+                    tab.className = "lang-tab active px-3.5 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150 shadow-sm";
+                } else {
+                    tab.className = "lang-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150";
+                }
+            });
+            updateSelectionIndicator();
+            renderPosts();
+        }
+
+        function selectLitType(lit) {
+            filterLitType = lit;
+            const tabs = document.querySelectorAll('.lit-tab');
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-lit') === lit) {
+                    tab.className = "lit-tab active px-3.5 py-1.5 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150 shadow-sm";
+                } else {
+                    tab.className = "lit-tab px-3.5 py-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 rounded text-xs font-semibold whitespace-nowrap transition-all duration-150";
+                }
+            });
+            updateSelectionIndicator();
+            renderPosts();
+        }
+
+        function handleSearch(val) {
+            searchQuery = val.trim().toLowerCase();
+            renderPosts();
+        }
+
+        function toggleBookmarkFilter() {
+            showBookmarksOnly = !showBookmarksOnly;
+            const btn = document.getElementById('bookmarkFilterBtn');
+            const icon = document.getElementById('bookmarkFilterIcon');
+
+            if (showBookmarksOnly) {
+                btn.classList.add('bg-amber-500/10', 'border-amber-500/20', 'text-amber-600', 'dark:text-amber-400');
+                icon.className = "fa-solid fa-bookmark text-amber-500 animate-[bounce_0.6s_ease-in-out_1]";
+            } else {
+                btn.classList.remove('bg-amber-500/10', 'border-amber-500/20', 'text-amber-600', 'dark:text-amber-400');
+                icon.className = "fa-regular fa-bookmark text-amber-500";
+            }
+            updateSelectionIndicator();
+            renderPosts();
+        }
+
+        function updateSelectionIndicator() {
+            let label = "";
+            if (showBookmarksOnly) {
+                label += "Saved Publications";
+            } else {
+                const langMap = { 'All': 'All Editions', 'EN': 'English Works', 'ML': 'മലയാളം കൃതികൾ', 'AR': 'الكتب العربية', 'UR': 'اردو مقالات', 'HI': 'हिन्दी रचनाएँ' };
+                const typeMap = { 'All': 'Styles', 'Poem': 'Poems', 'Story': 'Short Stories', 'Essay': 'Essays', 'Feature': 'Features', 'Another': 'Miscellany' };
+                label += `${langMap[filterLang]} — ${typeMap[filterLitType]}`;
+            }
+            document.getElementById('currentSelectionIndicator').innerText = label;
+        }
+
+        function resetFilters() {
+            searchQuery = '';
+            filterLang = 'All';
+            filterLitType = 'All';
+            showBookmarksOnly = false;
+            document.getElementById('searchInput').value = '';
+            
+            const btn = document.getElementById('bookmarkFilterBtn');
+            const icon = document.getElementById('bookmarkFilterIcon');
+            btn.classList.remove('bg-amber-500/10', 'border-amber-500/20', 'text-amber-600', 'dark:text-amber-400');
+            icon.className = "fa-regular fa-bookmark text-amber-500";
+
+            selectLanguage('All');
+            selectLitType('All');
+        }
+
+        function setLayout(mode) {
+            viewLayout = mode;
+            const btnAsym = document.getElementById('btnAsym');
+            const btnList = document.getElementById('btnList');
+            const container = document.getElementById('postsContainer');
+
+            if (mode === 'asymmetric') {
+                btnAsym.classList.add('text-amber-600', 'dark:text-amber-400');
+                btnAsym.classList.remove('text-zinc-400', 'dark:text-zinc-500');
+                btnList.classList.add('text-zinc-400', 'dark:text-zinc-500');
+                btnList.classList.remove('text-amber-600', 'dark:text-amber-400');
+                container.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 transition-all duration-300";
+            } else {
+                btnList.classList.add('text-amber-600', 'dark:text-amber-400');
+                btnList.classList.remove('text-zinc-400', 'dark:text-zinc-500');
+                btnAsym.classList.add('text-zinc-400', 'dark:text-zinc-500');
+                btnAsym.classList.remove('text-amber-600', 'dark:text-amber-400');
+                container.className = "flex flex-col gap-4 transition-all duration-300 max-w-4xl mx-auto w-full";
+            }
+            renderPosts();
+        }
+
+        // IMAGE BASE64 PROCESSOR
+        function processLocalPhotoUpload(input) {
+            const file = input.files[0];
+            const nameLabel = document.getElementById('photoFileName');
+            const base64Input = document.getElementById('postPhotoBase64');
+            const previewContainer = document.getElementById('photoPreviewContainer');
+            const previewImg = document.getElementById('photoPreviewImg');
+            const clearBtn = document.getElementById('clearPhotoBtn');
+
+            if (file) {
+                nameLabel.innerText = file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64Input.value = e.target.result;
+                    previewImg.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                    clearBtn.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function clearSelectedPhoto() {
+            document.getElementById('postPhotoFile').value = "";
+            document.getElementById('postPhotoBase64').value = "";
+            document.getElementById('photoFileName').innerText = "No image selected";
+            document.getElementById('photoPreviewContainer').classList.add('hidden');
+            document.getElementById('photoPreviewImg').src = "";
+            document.getElementById('clearPhotoBtn').classList.add('hidden');
+        }
+
+        // RENDER LOGIC PIPELINE
+        function renderPosts() {
+            const container = document.getElementById('postsContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            const filtered = posts.filter(post => {
+                const isPublished = post.status === 'published' || !post.status;
+                const matchesLang = filterLang === 'All' || post.language === filterLang;
+                const matchesLit = filterLitType === 'All' || post.litType === filterLitType;
+                const matchesSaves = !showBookmarksOnly || savedPostIds.includes(String(post.id)) || savedPostIds.includes(Number(post.id));
+                
+                const matchesSearch = searchQuery === '' ||
+                                      post.title.toLowerCase().includes(searchQuery) ||
+                                      post.author.toLowerCase().includes(searchQuery) ||
+                                      post.abstract.toLowerCase().includes(searchQuery) ||
+                                      post.category.toLowerCase().includes(searchQuery);
+
+                return isPublished && matchesLang && matchesLit && matchesSaves && matchesSearch;
+            });
+
+            document.getElementById('resultsCount').innerText = `Catalogued: ${filtered.length} entries shown`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = "";
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            let htmlContent = "";
+            filtered.forEach((post, index) => {
+                const isSaved = savedPostIds.includes(String(post.id)) || savedPostIds.includes(Number(post.id));
+                const bookmarkIcon = isSaved ? 'fa-solid text-amber-500' : 'fa-regular text-zinc-400 hover:text-amber-500';
+                
+                const typography = getLanguageTypographyStyles(post.language);
+                const textDir = post.language === 'AR' || post.language === 'UR' ? 'rtl' : 'ltr';
+                const textAlign = post.language === 'AR' || post.language === 'UR' ? 'text-right' : 'text-left';
+
+                const hasCoverImage = post.image && post.image.trim() !== "";
+                const coverImageHtml = hasCoverImage ? `
+                    <div class="w-full h-48 overflow-hidden rounded-t-md mb-4 border-b border-zinc-150 dark:border-zinc-900 relative">
+                        <img src="${post.image}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt="Cover Graphic">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                    </div>
+                ` : '';
+
+                if (viewLayout === 'asymmetric') {
+                    let colSpan = "lg:col-span-4";
+                    let customBg = "bg-white dark:bg-darkCard";
+                    let customAccent = "border-zinc-250/60 dark:border-zinc-900 hover:border-amber-500/30";
+
+                    if (index % 5 === 0) {
+                        colSpan = "lg:col-span-8";
+                        customBg = "bg-gradient-to-br from-white to-zinc-50 dark:from-darkCard dark:to-zinc-950";
+                    } else if (index % 5 === 3) {
+                        colSpan = "lg:col-span-5";
+                    } else if (index % 5 === 4) {
+                        colSpan = "lg:col-span-7";
+                    }
+
+                    if (post.litType === 'Poem') {
+                        htmlContent += `
+                            <div class="${colSpan} bg-zinc-50 dark:bg-zinc-950 border border-amber-500/15 hover:border-amber-500/40 rounded-lg p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-neon-sm glow-border-gold">
+                                ${coverImageHtml}
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="bg-amber-500/5 text-amber-600 dark:text-amber-400 text-[8px] px-2 py-0.5 rounded font-mono font-bold tracking-wider uppercase border border-amber-500/20">
+                                        📜 ${post.litType}
+                                    </span>
+                                    <div class="flex items-center gap-1">
+                                        <button onclick="toggleSavePost('${post.id}', event)" class="p-1.5 bg-white dark:bg-zinc-900 hover:bg-zinc-100 rounded-md transition-colors border border-zinc-150 dark:border-zinc-800" title="Bookmark">
+                                            <i class="fa-bookmark ${bookmarkIcon} text-[10px]"></i>
+                                        </button>
+                                        ${isEditorModeActive ? `
+                                            <button onclick="openEditPost('${post.id}', event)" class="p-1.5 bg-white dark:bg-zinc-900 text-amber-600 hover:bg-amber-550/10 rounded-md border border-zinc-150 dark:border-zinc-800" title="Edit">
+                                                <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+                                            </button>
+                                            <button onclick="confirmDeletePost('${post.id}', event)" class="p-1.5 bg-white dark:bg-zinc-900 text-red-500 hover:bg-red-550/10 rounded-md border border-zinc-150 dark:border-zinc-800" title="Delete">
+                                                <i class="fa-solid fa-trash-can text-[10px]"></i>
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+
+                                <div onclick="openReadPost('${post.id}')" class="cursor-pointer py-4 text-center select-none" style="direction: ${textDir}">
+                                    <span class="text-amber-500 text-lg block font-editorial">“</span>
+                                    <h3 class="${typography.heading} text-base font-editorial font-bold italic text-zinc-900 dark:text-zinc-100 leading-tight">
+                                        ${post.title}
+                                    </h3>
+                                    <p class="${typography.body} text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-serif italic line-clamp-2">
+                                        ${post.abstract}
+                                    </p>
+                                    <span class="text-amber-500 text-lg block font-editorial mt-1">”</span>
+                                </div>
+
+                                <div class="mt-4 pt-3 border-t border-zinc-200/50 dark:border-zinc-900/60 flex items-center justify-between text-[9px] font-mono text-zinc-400">
+                                    <span class="italic text-zinc-500 dark:text-zinc-300 font-bold font-sans">${post.author}</span>
+                                    <span>${post.readTime} min read</span>
+                                </div>
+                            </div>
+                        `;
+                    } else if (post.litType === 'Story') {
+                        htmlContent += `
+                            <div class="${colSpan} bg-white dark:bg-darkCard border-l-4 border-amber-500 border-t border-r border-b border-zinc-250/60 dark:border-zinc-900 rounded-lg p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-neon-sm glow-border-gold">
+                                ${coverImageHtml}
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[8px] px-2 py-0.5 rounded font-mono font-bold uppercase tracking-wide">
+                                        📚 Story Edition
+                                    </span>
+                                    <div class="flex items-center gap-1">
+                                        <button onclick="toggleSavePost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 rounded-md border border-zinc-100 dark:border-zinc-800" title="Bookmark">
+                                            <i class="fa-bookmark ${bookmarkIcon} text-[10px]"></i>
+                                        </button>
+                                        ${isEditorModeActive ? `
+                                            <button onclick="openEditPost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 text-amber-600 rounded-md border border-zinc-100 dark:border-zinc-800" title="Edit">
+                                                <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+                                            </button>
+                                            <button onclick="confirmDeletePost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 text-red-500 rounded-md border border-zinc-100 dark:border-zinc-800" title="Delete">
+                                                <i class="fa-solid fa-trash-can text-[10px]"></i>
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+
+                                <div onclick="openReadPost('${post.id}')" class="cursor-pointer space-y-1.5" style="direction: ${textDir}">
+                                    <h3 class="${typography.heading} ${textAlign} text-base font-editorial font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                        ${post.title}
+                                    </h3>
+                                    <p class="${typography.body} ${textAlign} text-xs text-zinc-500 dark:text-zinc-405 line-clamp-3 leading-relaxed font-serif">
+                                        ${post.abstract}
+                                    </p>
+                                </div>
+
+                                <div class="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-900/60 flex items-center justify-between text-[10px] text-zinc-400 font-mono">
+                                    <span class="text-amber-500 font-bold">${post.author}</span>
+                                    <span>${post.date}</span>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        const hasDropcap = post.language === 'EN';
+                        htmlContent += `
+                            <div class="${colSpan} ${customBg} border ${customAccent} rounded-lg p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-neon-sm glow-border-gold">
+                                ${coverImageHtml}
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="bg-zinc-100 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 text-[8px] px-2.5 py-0.5 rounded font-mono font-bold tracking-wider uppercase">
+                                        🖋️ ${post.litType}
+                                    </span>
+                                    <div class="flex items-center gap-1">
+                                        <button onclick="toggleSavePost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 rounded-md border border-zinc-100 dark:border-zinc-800" title="Bookmark">
+                                            <i class="fa-bookmark ${bookmarkIcon} text-[10px]"></i>
+                                        </button>
+                                        ${isEditorModeActive ? `
+                                            <button onclick="openEditPost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 text-amber-600 rounded-md border border-zinc-100 dark:border-zinc-800" title="Edit">
+                                                <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+                                            </button>
+                                            <button onclick="confirmDeletePost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 text-red-500 rounded-md border border-zinc-100 dark:border-zinc-800" title="Delete">
+                                                <i class="fa-solid fa-trash-can text-[10px]"></i>
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+
+                                <div onclick="openReadPost('${post.id}')" class="cursor-pointer space-y-2 flex-1" style="direction: ${textDir}">
+                                    <h3 class="${typography.heading} ${textAlign} text-base font-serif font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                        ${post.title}
+                                    </h3>
+                                    <p class="${typography.body} ${textAlign} text-xs text-zinc-500 dark:text-zinc-400 line-clamp-3 leading-relaxed font-serif ${hasDropcap ? 'academic-dropcap' : ''}">
+                                        ${post.abstract}
+                                    </p>
+                                </div>
+
+                                <div class="mt-5 pt-3 border-t border-zinc-100 dark:border-zinc-900/50 flex items-center justify-between text-[10px] text-zinc-400">
+                                    <span class="font-bold text-amber-500 truncate max-w-[130px]">${post.author}</span>
+                                    <span class="font-mono">${post.readTime} min read</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else {
+                    htmlContent += `
+                        <div class="group bg-white dark:bg-darkCard border border-zinc-200 dark:border-zinc-900 hover:border-amber-500/30 rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all duration-300 relative shadow-sm glow-border-gold">
+                            <div onclick="openReadPost('${post.id}')" class="cursor-pointer flex-1 space-y-1.5" style="direction: ${textDir}">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="text-[9px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase tracking-wider">${post.category}</span>
+                                    <span class="text-zinc-350 dark:text-zinc-800">•</span>
+                                    <span class="text-[9px] text-zinc-500 bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded font-mono font-bold">${post.language}</span>
+                                    <span class="text-[9px] text-zinc-500 bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded font-mono font-bold">${post.litType}</span>
+                                    <span class="text-zinc-350 dark:text-zinc-800">•</span>
+                                    <span class="text-[9px] font-mono text-zinc-400">${post.date}</span>
+                                </div>
+                                <h3 class="${typography.heading} ${textAlign} text-base font-serif font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-amber-500 transition-colors leading-tight">
+                                    ${post.title}
+                                </h3>
+                                <p class="${typography.body} ${textAlign} text-xs text-zinc-500 dark:text-zinc-450 line-clamp-1 leading-normal font-light">
+                                    ${post.abstract}
+                                </p>
+                            </div>
+
+                            <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-zinc-100 dark:border-zinc-900">
+                                <span class="text-[10px] text-zinc-400 font-mono tracking-wide shrink-0">${post.author} • ${post.readTime}m read</span>
+                                <div class="flex items-center gap-1.5">
+                                    <button onclick="toggleSavePost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 hover:bg-zinc-100 border border-zinc-150 dark:border-zinc-850 rounded transition-colors">
+                                        <i class="fa-bookmark ${bookmarkIcon} text-[10px]"></i>
+                                    </button>
+                                    ${isEditorModeActive ? `
+                                        <button onclick="openEditPost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 text-amber-600 hover:bg-amber-550/10 border border-zinc-150 dark:border-zinc-850 rounded transition-colors">
+                                            <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+                                        </button>
+                                        <button onclick="confirmDeletePost('${post.id}', event)" class="p-1.5 bg-zinc-50 dark:bg-zinc-900 text-red-500 hover:bg-red-550/10 border border-zinc-150 dark:border-zinc-850 rounded transition-colors">
+                                            <i class="fa-solid fa-trash-can text-[10px]"></i>
+                                        </button>
+                                    ` : ''}
+                                    <button onclick="openReadPost('${post.id}')" class="px-3.5 py-1.5 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-xs text-white dark:text-zinc-900 rounded font-semibold transition-all shadow-sm">
+                                        Open
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        function renderPendingQueue() {
+            const container = document.getElementById('pendingQueueContainer');
+            const pendingCounter = document.getElementById('pendingCounter');
+            if (!container) return;
+
+            const pending = posts.filter(p => p.status === 'pending');
+            pendingCounter.innerText = `${pending.length} Pending Submission${pending.length === 1 ? '' : 's'}`;
+
+            if (pending.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-8 text-center border border-dashed border-amber-500/20 rounded-lg">
+                        <p class="text-xs font-mono text-amber-500/60 uppercase">No items currently waiting in review queue</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let pendingHtml = "";
+            pending.forEach(post => {
+                const typography = getLanguageTypographyStyles(post.language);
+                pendingHtml += `
+                    <div class="bg-zinc-900/60 border border-amber-500/30 rounded-lg p-4 flex flex-col justify-between gap-3 relative shadow-sm animate-pulse">
+                        <div>
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span class="bg-amber-500/10 text-amber-400 text-[8px] px-2 py-0.5 rounded font-mono font-bold">${post.language}</span>
+                                <span class="bg-zinc-800 text-zinc-300 text-[8px] px-2 py-0.5 rounded font-mono">${post.litType}</span>
+                                <span class="text-[8px] font-mono text-zinc-500 ml-auto">${post.date}</span>
+                            </div>
+                            <h4 class="${typography.heading} text-sm font-bold text-white mb-1 line-clamp-1">${post.title}</h4>
+                            <p class="${typography.body} text-xs text-zinc-400 line-clamp-2 italic">${post.abstract}</p>
+                            <span class="text-[9px] font-mono text-amber-500 mt-2 block">By: ${post.author}</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-2 pt-2 border-t border-zinc-800 text-xs">
+                            <button onclick="openReadPost('${post.id}')" class="px-2.5 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded text-[10px] font-semibold flex items-center gap-1">
+                                <i class="fa-regular fa-eye"></i> View Draft
+                            </button>
+                            <div class="flex items-center gap-1 ml-auto">
+                                <button onclick="rejectPendingPost('${post.id}')" class="px-2.5 py-1 bg-red-950/40 hover:bg-red-900/40 text-red-400 rounded text-[10px] font-bold border border-red-900/30">
+                                    <i class="fa-regular fa-trash-can mr-1"></i> Decline
+                                </button>
+                                <button onclick="approvePendingPost('${post.id}')" class="px-3 py-1 bg-amber-600 hover:bg-amber-550 text-white rounded text-[10px] font-bold shadow-neon-sm">
+                                    <i class="fa-solid fa-check mr-1"></i> Approve
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = pendingHtml;
+        }
+
+        async function approvePendingPost(id) {
+            if (db && auth && auth.currentUser) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', String(id));
+                    await updateDoc(docRef, { status: 'published' });
+                    showToast("Draft approved and published globally!");
+                } catch(e) {
+                    console.error("Firestore update failed:", e);
+                    showToast("Database communication failure.");
+                }
+            } else {
+                const idx = posts.findIndex(p => String(p.id) === String(id));
+                if (idx !== -1) {
+                    posts[idx].status = 'published';
+                    saveDatabase();
+                    renderPosts();
+                    renderPendingQueue();
+                    showToast("Draft published successfully!");
+                }
+            }
+        }
+
+        function rejectPendingPost(id) {
+            triggerCustomConfirm(
+                "Decline Submission",
+                "Are you sure you want to decline and permanently discard this article?",
+                async () => {
+                    if (db && auth && auth.currentUser) {
+                        try {
+                            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', String(id));
+                            await deleteDoc(docRef);
+                            showToast("Submission declined.");
+                        } catch(e) {
+                            console.error("Firestore delete failed:", e);
+                            showToast("Cloud deletion failed.");
+                        }
+                    } else {
+                        posts = posts.filter(p => String(p.id) !== String(id));
+                        saveDatabase();
+                        renderPosts();
+                        renderPendingQueue();
+                        showToast("Submission discarded.");
+                    }
+                }
+            );
+        }
+
+        function getLanguageTypographyStyles(langCode) {
+            switch(langCode) {
+                case 'AR': return { heading: 'font-serif font-bold', body: 'font-serif text-lg leading-loose' };
+                case 'ML': return { heading: 'font-serif font-bold', body: 'font-serif leading-relaxed' };
+                case 'UR': return { heading: 'font-serif font-bold leading-relaxed', body: 'font-serif leading-loose text-lg' };
+                case 'HI': return { heading: 'font-serif font-bold', body: 'font-serif leading-relaxed' };
+                default: return { heading: 'font-editorial font-bold', body: 'font-serif' };
+            }
+        }
+
+        // BOOKMARKS PIPELINE
+        function toggleSavePost(id, event) {
+            if (event) event.stopPropagation();
+            
+            const stringId = String(id);
+            const numberId = Number(id);
+
+            let idx = savedPostIds.indexOf(stringId);
+            if (idx === -1) idx = savedPostIds.indexOf(numberId);
+
+            let toastMsg = "";
+
+            if (idx === -1) {
+                savedPostIds.push(stringId);
+                toastMsg = "Saved to Bookmarks!";
+            } else {
+                savedPostIds.splice(idx, 1);
+                toastMsg = "Removed from Bookmarks.";
+            }
+
+            safeSetLocalItem('hira_bookmarks_db', JSON.stringify(savedPostIds));
+            renderPosts();
+            updateStats();
+            showToast(toastMsg);
+
+            if (activeReadPost && String(activeReadPost.id) === stringId) {
+                updateModalSaveButtonState(stringId);
+            }
+        }
+
+        function toggleSaveFromModal() {
+            if (activeReadPost) {
+                toggleSavePost(activeReadPost.id, null);
+            }
+        }
+
+        function updateModalSaveButtonState(id) {
+            const btn = document.getElementById('modalSaveBtn');
+            const stringId = String(id);
+            const numberId = Number(id);
+
+            if (btn && activeReadPost && String(activeReadPost.id) === stringId) {
+                const isSaved = savedPostIds.includes(stringId) || savedPostIds.includes(numberId);
+                btn.innerHTML = isSaved ? '<i class="fa-solid fa-bookmark text-amber-500 animate-[bounce_0.5s_1]"></i>' : '<i class="fa-regular fa-bookmark"></i>';
+            }
+        }
+
+        // DOCUMENT READER DRAWER
+        function openReadPost(id) {
+            const post = posts.find(p => String(p.id) === String(id));
+            if (!post) return;
+
+            activeReadPost = post;
+
+            document.getElementById('readModalCategory').innerText = post.category;
+            document.getElementById('readModalLangBadge').innerText = post.language;
+            document.getElementById('readModalTypeBadge').innerText = post.litType;
+            document.getElementById('readerTitle').innerText = post.title;
+            document.getElementById('readerAuthor').innerText = post.author;
+            document.getElementById('readerMeta').innerText = `Published ${post.date} • ${post.readTime} min read`;
+            document.getElementById('readerAvatar').innerHTML = `<span class="font-bold text-xs">${post.author.charAt(0)}</span>`;
+            
+            const coverContainer = document.getElementById('readerCoverImageContainer');
+            const coverImg = document.getElementById('readerCoverImage');
+            if (post.image && post.image.trim() !== "") {
+                coverImg.src = post.image;
+                coverContainer.classList.remove('hidden');
+            } else {
+                coverContainer.classList.add('hidden');
+                coverImg.src = "";
+            }
+
+            const typography = getLanguageTypographyStyles(post.language);
+            const bodyTextContainer = document.getElementById('readerBodyText');
+            bodyTextContainer.className = `prose dark:prose-invert max-w-none text-zinc-700 dark:text-zinc-300 leading-relaxed font-serif space-y-5 text-sm ${typography.body}`;
+            
+            const textDir = post.language === 'AR' || post.language === 'UR' ? 'rtl' : 'ltr';
+            bodyTextContainer.style.direction = textDir;
+            if (post.language === 'AR' || post.language === 'UR') {
+                bodyTextContainer.classList.add('text-right');
+                bodyTextContainer.classList.remove('text-left');
+            } else {
+                bodyTextContainer.classList.add('text-left');
+                bodyTextContainer.classList.remove('text-right');
+            }
+
+            const paragraphs = post.content.split('\n\n');
+            let bodyHTML = "";
+            paragraphs.forEach(p => {
+                if (p.trim() !== "") {
+                    bodyHTML += `<p class="leading-relaxed tracking-wide text-zinc-750 dark:text-zinc-300 text-sm md:text-base">${p}</p>`;
+                }
+            });
+            bodyTextContainer.innerHTML = bodyHTML;
+            bodyTextContainer.style.fontSize = `${readerFontSize}px`;
+
+            updateModalSaveButtonState(id);
+
+            const readEdit = document.getElementById('readerEditBtn');
+            if (isEditorModeActive) {
+                readEdit.classList.remove('hidden');
+            } else {
+                readEdit.classList.add('hidden');
+            }
+
+            const drawer = document.getElementById('readModal');
+            drawer.classList.remove('translate-x-full', 'pointer-events-none');
+            drawer.classList.add('translate-x-0');
+        }
+
+        function closeReadModal() {
+            const drawer = document.getElementById('readModal');
+            drawer.classList.add('translate-x-full', 'pointer-events-none');
+            drawer.classList.remove('translate-x-0');
+            activeReadPost = null;
+        }
+
+        function adjustFontSize(delta) {
+            readerFontSize = Math.max(12, Math.min(24, readerFontSize + delta));
+            const body = document.getElementById('readerBodyText');
+            if (body) body.style.fontSize = `${readerFontSize}px`;
+        }
+
+        function copyArticleLink() {
+            if (!activeReadPost) return;
+            const linkStr = `Hira Beacon Review Monograph Citation Ref: [ID-${activeReadPost.id}]`;
+            
+            const temp = document.createElement("input");
+            temp.value = linkStr;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+
+            showToast("Citation link copied to clipboard!");
+        }
+
+        function triggerPublishAction() {
+            openWriteDraft();
+        }
+
+        function openWriteDraft() {
+            document.getElementById('publishForm').reset();
+            document.getElementById('editPostId').value = "";
+            document.getElementById('publishModalTitle').innerText = "Compose Literature Piece";
+            document.getElementById('publishSubmitBtn').innerHTML = `<i class="fa-solid fa-paper-plane mr-1.5 text-[10px]"></i> Submit to Lockbox`;
+            document.getElementById('readTimeLabel').innerText = 'Reading Time: 5 Minutes';
+            clearSelectedPhoto();
+
+            const modal = document.getElementById('publishModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }
+
+        function openEditPost(id, event) {
+            if (event) event.stopPropagation();
+            const post = posts.find(p => String(p.id) === String(id));
+            if (!post) return;
+
+            document.getElementById('editPostId').value = post.id;
+            document.getElementById('postTitle').value = post.title;
+            document.getElementById('postAuthor').value = post.author;
+            document.getElementById('postCategory').value = post.category;
+            document.getElementById('postLanguage').value = post.language;
+            document.getElementById('postLitType').value = post.litType;
+            document.getElementById('postAbstract').value = post.abstract;
+            document.getElementById('postContent').value = post.content;
+            document.getElementById('postReadTime').value = post.readTime;
+            document.getElementById('readTimeLabel').innerText = `Reading Time: ${post.readTime} Minutes`;
+
+            if (post.image && post.image.trim() !== "") {
+                document.getElementById('postPhotoBase64').value = post.image;
+                document.getElementById('photoPreviewImg').src = post.image;
+                document.getElementById('photoPreviewContainer').classList.remove('hidden');
+                document.getElementById('photoFileName').innerText = "Image Loaded Successfully";
+                document.getElementById('clearPhotoBtn').classList.remove('hidden');
+            } else {
+                clearSelectedPhoto();
+            }
+
+            document.getElementById('publishModalTitle').innerText = "Revise Catalog Entry";
+            document.getElementById('publishSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk mr-1.5 text-[10px]"></i> Save Revisions`;
+
+            const modal = document.getElementById('publishModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }
+
+        function editPostFromReader() {
+            if (activeReadPost) {
+                const id = activeReadPost.id;
+                closeReadModal();
+                setTimeout(() => {
+                    openEditPost(id, null);
+                }, 200);
+            }
+        }
+
+        function closePublishModal() {
+            const modal = document.getElementById('publishModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+            document.getElementById('publishForm').reset();
+            clearSelectedPhoto();
+        }
+
+        async function handlePublishSubmit(event) {
+            event.preventDefault();
+
+            const editId = document.getElementById('editPostId').value;
+            const title = document.getElementById('postTitle').value;
+            const author = document.getElementById('postAuthor').value;
+            const category = document.getElementById('postCategory').value;
+            const language = document.getElementById('postLanguage').value;
+            const litType = document.getElementById('postLitType').value;
+            const abstract = document.getElementById('postAbstract').value;
+            const content = document.getElementById('postContent').value;
+            const readTime = parseInt(document.getElementById('postReadTime').value);
+            const imageBase64 = document.getElementById('postPhotoBase64').value;
+
+            const statusType = editId ? (posts.find(p => String(p.id) === String(editId))?.status || 'published') : 'pending';
+
+            const postData = {
+                title: title,
+                author: author,
+                category: category,
+                language: language,
+                litType: litType,
+                abstract: abstract,
+                content: content,
+                readTime: readTime,
+                status: statusType,
+                image: imageBase64
+            };
+
+            if (editId) {
+                if (db && auth && auth.currentUser) {
+                    try {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', String(editId));
+                        await updateDoc(docRef, postData);
+                        showToast("Revisions uploaded.");
+                    } catch(e) {
+                        console.error("Firestore update failed:", e);
+                        showToast("Database communication failure.");
+                    }
+                } else {
+                    const postIdx = posts.findIndex(p => String(p.id) === String(editId));
+                    if (postIdx !== -1) {
+                        posts[postIdx] = { ...posts[postIdx], ...postData };
+                        saveDatabase();
+                        renderPosts();
+                        renderPendingQueue();
+                        showToast("Revisions saved locally.");
+                    }
+                }
+            } else {
+                const newId = String(Date.now());
+                const newPost = {
+                    id: newId,
+                    ...postData,
+                    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                    featured: false
+                };
+
+                if (db && auth && auth.currentUser) {
+                    try {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', newId);
+                        await setDoc(docRef, newPost);
+                        showToast("Submitted successfully to Lockbox.");
+                    } catch(e) {
+                        console.error("Firestore upload failed:", e);
+                        showToast("Failed to upload entry.");
+                    }
+                } else {
+                    posts.push(newPost);
+                    saveDatabase();
+                    renderPosts();
+                    renderPendingQueue();
+                    showToast("Submitted successfully to Lockbox.");
+                }
+            }
+
+            closePublishModal();
+            updateStats();
+        }
+
+        function saveDatabase() {
+            safeSetLocalItem('hira_posts_db', JSON.stringify(posts));
+        }
+
+        // PERMANENT DELETIONS (SYNCS GLOBALLY)
+        function confirmDeletePost(id, event) {
+            if (event) event.stopPropagation();
+            
+            triggerCustomConfirm(
+                "Delete Publication Permanently", 
+                "Warning: This action will permanently delete this document from all desktops and devices globally.", 
+                () => {
+                    executeDeletePost(id);
+                }
+            );
+        }
+
+        async function executeDeletePost(id) {
+            posts = posts.filter(p => String(p.id) !== String(id));
+
+            if (db && auth && auth.currentUser) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', String(id));
+                    await deleteDoc(docRef);
+                    showToast("Article deleted permanently across all devices!");
+                } catch(e) {
+                    console.error("Firestore global deletion failed:", e);
+                    showToast("Failed to delete globally from cloud.");
+                }
+            } else {
+                saveDatabase();
+                renderPosts();
+                renderPendingQueue();
+                showToast("Deleted locally.");
+            }
+            
+            savedPostIds = savedPostIds.filter(savedId => String(savedId) !== String(id));
+            safeSetLocalItem('hira_bookmarks_db', JSON.stringify(savedPostIds));
+
+            renderPosts();
+            renderPendingQueue();
+            updateStats();
+        }
+
+        // SYSTEM DIRECTORY PURGES
+        function triggerPurgeDirectory() {
+            triggerCustomConfirm(
+                "Purge Entire Directory", 
+                "Crucial Warning: This deletes ALL records and custom publications globally. No backups are saved.", 
+                () => {
+                    executePurgeDirectory();
+                }
+            );
+        }
+
+        async function executePurgeDirectory() {
+            posts = [];
+            savedPostIds = [];
+            safeSetLocalItem('hira_bookmarks_db', JSON.stringify(savedPostIds));
+
+            if (db && auth && auth.currentUser) {
+                try {
+                    const postsCol = collection(db, 'artifacts', appId, 'public', 'data', 'posts');
+                    const snapshot = await getDocs(postsCol);
+                    for (const docSnap of snapshot.docs) {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'posts', docSnap.id));
+                    }
+                    showToast("System database purged globally.");
+                } catch(e) {
+                    console.error("Cloud purge failed:", e);
+                    showToast("Purge failed.");
+                }
+            } else {
+                saveDatabase();
+                renderPosts();
+                renderPendingQueue();
+                showToast("Local storage purged.");
+            }
+            
+            resetFilters();
+            updateStats();
+        }
+
+        // RESTORE DEFAULTS
+        async function restoreSeedDatabase() {
+            if (db && auth && auth.currentUser) {
+                try {
+                    for (const seed of SEED_POSTS) {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', seed.id);
+                        await setDoc(docRef, seed);
+                    }
+                    showToast("Defaults restored successfully across all devices.");
+                } catch(e) {
+                    console.error("Seeding cloud documents failed:", e);
+                    showToast("Seeding failed.");
+                }
+            } else {
+                posts = [...SEED_POSTS];
+                saveDatabase();
+                renderPosts();
+                renderPendingQueue();
+                showToast("Defaults restored.");
+            }
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('statArticles').innerText = posts.filter(p => p.status === 'published' || !p.status).length;
+            document.getElementById('statBookmarks').innerText = savedPostIds.length;
+            document.getElementById('statMode').innerText = isEditorModeActive ? "Active" : "Off";
+            
+            const badge = document.getElementById('bookmarkBadge');
+            if (savedPostIds.length > 0) {
+                badge.innerText = savedPostIds.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toastMessage');
+            
+            msgSpan.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 2500);
+        }
+
+        // SLIDER APK ANIMATIONS
+        function toggleApkSlider(show) {
+            const slider = document.getElementById('apkSlider');
+            if (show) {
+                slider.classList.remove('translate-x-full', 'pointer-events-none');
+                slider.classList.add('translate-x-0');
+            } else {
+                slider.classList.add('translate-x-full', 'pointer-events-none');
+                slider.classList.remove('translate-x-0');
+            }
+        }
+
+        let isInstalling = false;
+        function startSimulatedApkInstall() {
+            if (isInstalling) return;
+            isInstalling = true;
+
+            const btn = document.getElementById('apkInstallBtn');
+            const resetBtn = document.getElementById('apkResetBtn');
+            const idleState = document.getElementById('apkStateIdle');
+            const progressState = document.getElementById('apkStateProgress');
+            const successState = document.getElementById('apkStateSuccess');
+            const progressBar = document.getElementById('apkProgressBar');
+            const percentLabel = document.getElementById('apkPercent');
+            const stageLabel = document.getElementById('apkInstallStage');
+            const subtext = document.getElementById('apkSubtext');
+
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            idleState.classList.add('hidden');
+            successState.classList.add('hidden');
+            progressState.classList.remove('hidden');
+
+            let progress = 0;
+            progressBar.style.width = '0%';
+            percentLabel.innerText = '0%';
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 8) + 4;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = `${progress}%`;
+                percentLabel.innerText = `${progress}%`;
+
+                if (progress < 25) {
+                    stageLabel.innerText = "Downloading...";
+                    subtext.innerText = `Fetching APK components (${(progress * 18.4 / 100).toFixed(1)} MB / 18.4 MB)`;
+                } else if (progress < 55) {
+                    stageLabel.innerText = "Verifying Integrity...";
+                    subtext.innerText = "Running Flutter target platform package validations...";
+                } else if (progress < 80) {
+                    stageLabel.innerText = "Decompressing Assets...";
+                    subtext.innerText = "Configuring rendering engines and custom typography layouts...";
+                } else if (progress < 100) {
+                    stageLabel.innerText = "Installing Application...";
+                    subtext.innerText = "Resolving sandbox storage layers onto your device directory...";
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressState.classList.add('hidden');
+                        successState.classList.remove('hidden');
+                        resetBtn.classList.remove('hidden');
+                        
+                        btn.innerHTML = `<i class="fa-solid fa-mobile-screen-button"></i> <span>Installation Finished</span>`;
+                        isInstalling = false;
+                        showToast("Simulated APK compilation complete!");
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        function resetApkSim() {
+            const btn = document.getElementById('apkInstallBtn');
+            const resetBtn = document.getElementById('apkResetBtn');
+            const idleState = document.getElementById('apkStateIdle');
+            const progressState = document.getElementById('apkStateProgress');
+            const successState = document.getElementById('apkStateSuccess');
+
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            btn.innerHTML = `<i class="fa-brands fa-android"></i> <span>Start Flutter Compilation</span>`;
+
+            idleState.classList.remove('hidden');
+            progressState.classList.add('hidden');
+            successState.classList.add('hidden');
+            resetBtn.classList.add('hidden');
+            isInstalling = false;
+        }
+
+        // Global assignments
+        window.toggleTheme = toggleTheme;
+        window.dismissSplash = dismissSplash;
+        window.openPasswordModal = openPasswordModal;
+        window.closePasswordModal = closePasswordModal;
+        window.togglePasswordVisibility = togglePasswordVisibility;
+        window.verifyPassword = verifyPassword;
+        window.exitEditorMode = exitEditorMode;
+        window.selectLanguage = selectLanguage;
+        window.selectLitType = selectLitType;
+        window.handleSearch = handleSearch;
+        window.toggleBookmarkFilter = toggleBookmarkFilter;
+        window.resetFilters = resetFilters;
+        window.setLayout = setLayout;
+        window.toggleSavePost = toggleSavePost;
+        window.toggleSaveFromModal = toggleSaveFromModal;
+        window.openReadPost = openReadPost;
+        window.closeReadModal = closeReadModal;
+        window.adjustFontSize = adjustFontSize;
+        window.copyArticleLink = copyArticleLink;
+        window.triggerPublishAction = triggerPublishAction;
+        window.openWriteDraft = openWriteDraft;
+        window.openEditPost = openEditPost;
+        window.editPostFromReader = editPostFromReader;
+        window.closePublishModal = closePublishModal;
+        window.handlePublishSubmit = handlePublishSubmit;
+        window.confirmDeletePost = confirmDeletePost;
+        window.triggerPurgeDirectory = triggerPurgeDirectory;
+        window.restoreSeedDatabase = restoreSeedDatabase;
+        window.approvePendingPost = approvePendingPost;
+        window.rejectPendingPost = rejectPendingPost;
+        window.processLocalPhotoUpload = processLocalPhotoUpload;
+        window.clearSelectedPhoto = clearSelectedPhoto;
+        window.toggleApkSlider = toggleApkSlider;
+        window.startSimulatedApkInstall = startSimulatedApkInstall;
+        window.resetApkSim = resetApkSim;
+    </script>
+</body>
+</html>
